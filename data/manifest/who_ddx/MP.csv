@@ -1,0 +1,24 @@
+,column_name,dtype,number_of_chars,char_position_start,char_position_end,notes
+0,Medicinalprod_Id,<class 'str'>,10,1,10,Medicinal Product idenfier
+1,MedID,<class 'str'>,35,11,45,'Not used'
+2,Drug record number,<class 'str'>,6,46,51,
+3,Sequence number 1,<class 'str'>,2,52,53,
+4,Sequence number 2,<class 'str'>,3,54,56,
+5,Sequence number 3,<class 'str'>,10,57,66,
+6,Sequence number 4,<class 'str'>,10,67,76,
+7,Generic,<class 'str'>,1,77,77,Y or N
+8,Drug name,<class 'str'>,1500,78,1577,
+9,Name specifier,<class 'str'>,30,1578,1607,
+10,Marketing Authorization Number,<class 'str'>,30,1608,1637,'Not used'
+11,Marketing Authorization Date,<class 'str'>,8,1638,1645,'Not used'
+12,Marketing Authorization Withdrawal Date,<class 'str'>,8,1646,1653,'Not used'
+13,Country,<class 'str'>,10,1654,1663,"CCODE. Country code Marketing country. A 3-character code based on standard ISO 3166-1, alpha-3"
+14,Company,<class 'str'>,10,1664,1673,ORG.Organization_Id.
+15,Marketing Authorization Holder,<class 'str'>,10,1674,1683,ORG.Organization_Id.
+16,Reference code,<class 'str'>,10,1684,1693,SRCE.Reference code
+17,Source country,<class 'str'>,10,1694,1703,CCODE. Country code.
+18,Year of Reference,<class 'str'>,3,1704,1706,
+19,Product type,<class 'str'>,10,1707,1716,PRT.Prodtype_Id.
+20,Product group,<class 'str'>,10,1717,1726,PRG.Productgroup_Id.
+21,Create date,<class 'str'>,8,1727,1734,
+22,Date changed,<class 'str'>,8,1735,1742,

@@ -1,0 +1,3 @@
+,column_name,dtype,number_of_chars,char_position_start,char_position_end,notes
+0,Drug_Id,<class 'int'>,11,0,11,Unique number linking IND to DRUG
+1,Indication,<class 'str'>,255,11,266,"Reason for drug use. Indication can be decoded from MedDRA, ICD-8, ICD-9 or ICD-10."

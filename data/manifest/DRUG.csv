@@ -1,0 +1,13 @@
+,column_name,dtype,number_of_chars,char_position_start,char_position_end,notes
+0,UMCReportId,<class 'int'>,11,0,11,Unique number linking DRUG to DEMO
+1,Drug_Id,<class 'int'>,11,11,22,Unique number identifying each row in DRUG
+2,MedicinalProd_Id,<class 'int'>,11,22,33,A sequential number generated for each Medicinal product
+3,DrecNo,<class 'str'>,6,33,39,Drug record number
+4,Seq1,<class 'str'>,2,39,41,Sequence number 1
+5,Seq2,<class 'str'>,3,41,44,Sequence number 2
+6,Route,<class 'str'>,2,44,46,RouteOfAdm_Lx.Code. Route of administration of drug.
+7,Basis,<class 'str'>,1,46,47,RepBasis_Lx.Code. Characterization of drug role.
+8,Amount,<class 'str'>,5,47,52,Dosage regimen; Amount
+9,AmountU,<class 'str'>,2,52,54,SizeUnit_Lx.Code. Amount unit.
+10,Frequency,<class 'str'>,2,54,56,Number of units in the interval
+11,FrequencyU,<class 'str'>,3,56,59,Frequency_Lx.Code. Definition of the interval.

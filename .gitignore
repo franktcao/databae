@@ -1,0 +1,30 @@
+
+# === Misc.
+# PyCharm
+.idea/
+# VS Code
+.vscode/
+# Virtual Environment
+.venv/
+# Jupyter
+.ipynb_checkpoints/
+# Mac
+.DS_Store
+
+# === Secrets
+secrets/
+
+# === Data
+*.csv
+*.txt
+*.parquet
+*.xlsx
+*.zip
+*.jpeg
+
+# === Documents
+*.pdf
+
+# === Include
+!requirements*.txt
+!data/manifest/**

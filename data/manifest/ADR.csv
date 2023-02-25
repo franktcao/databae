@@ -1,0 +1,5 @@
+,column_name,dtype,number_of_chars,char_position_start,char_position_end,notes
+0,UMCReportId,<class 'int'>,11,0,11,Unique number linking OUT to DEMO
+1,Adr_Id,<class 'int'>,11,11,22,Unique number identifying each row in ADR
+2,MedDRA_Id,<class 'int'>,8,22,30,MedDRA term code
+3,Outcome,<class 'str'>,1,30,31,Outcome_Lx.Code. Outcome of reaction.

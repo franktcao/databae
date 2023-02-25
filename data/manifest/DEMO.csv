@@ -1,0 +1,8 @@
+,column_name,dtype,number_of_chars,char_position_start,char_position_end,notes
+0,UMCReportId,<class 'int'>,11,0,11,Unique number linking OUT to DEMO
+1,AgeGroup,<class 'str'>,1,11,12,AgeGroup_Lx.Code. Age of patient at time of onset of reaction
+2,Gender,<class 'str'>,1,12,13,Gender_Lx.Code
+3,DateDatabase,<class 'str'>,8,13,21,Date when report was entered into the database. [YYYYMMDD]
+4,Type,<class 'str'>,1,21,22,ReportType_Lx.Code. Report type.
+5,Region,<class 'str'>,1,22,23,Region_lx.Code.
+6,FirstDateDatabase,<class 'str'>,8,23,31,Date when the first version of the report was entered into the database. [YYYYMMDD]

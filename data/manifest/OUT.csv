@@ -1,0 +1,4 @@
+,column_name,dtype,number_of_chars,char_position_start,char_position_end,notes
+0,UMCReportId,<class 'int'>,11,0,11,Unique number linking OUT to DEMO
+1,Seriousness,<class 'str'>,2,11,13,Seriousness_Lx.Code. Seriousness criteria of case.
+2,Serious,<class 'str'>,1,13,14,The value refers to if the case was serious or not. Could be either ’Y’ = yes ’N’ = no

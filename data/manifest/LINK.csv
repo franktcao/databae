@@ -1,0 +1,9 @@
+,column_name,dtype,number_of_chars,char_position_start,char_position_end,notes
+0,Drug_Id,<class 'int'>,11,1,11,Unique number linking LINK to DRUG
+1,Adr_Id,<class 'int'>,11,11,22,Unique number linking LINK to ADR
+2,Dechallenge1,<class 'str'>,1,22,23,Dechallenge_Lx.Code. Dechallenge action.
+3,Dechallenge2,<class 'str'>,1,23,24,Dechallenge2_Lx.Code. Dechallenge outcome.
+4,Rechallenge1,<class 'str'>,1,24,25,Rechallenge_Lx.Code. Rechallenge action.
+5,Rechallenge2,<class 'str'>,1,25,26,Rechallenge2_Lx.Code. Rechallenge outcome.
+6,TimeToOnsetMin,<class 'float'>,11,26,37,Always in the base unit days (see Appendix 1)
+7,TimeToOnsetMax,<class 'float'>,11,37,48,Always in the base unit days (see Appendix 1)
