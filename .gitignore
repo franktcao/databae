@@ -12,7 +12,7 @@ secrets/
 *.zip
 *.jpeg
 *.pyc
-notebooks/
+notebooks/*
 # === Misc.
 # PyCharm
 .idea/
@@ -27,7 +27,6 @@ __pycache__/
 .pytest_cache/
 # Other files
 quickstart.py
-quickstart1.py
 test.R
 pancreatitis_meddra_id.yaml
 # === Include
