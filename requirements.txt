@@ -10,9 +10,13 @@ jupyterlab-vim
 numpy
 pandas
 pandera
+psycopg2
+pyspark
+pytest
 pyyaml
 seaborn
 streamlit
+sqlalchemy
 tqdm
 # pyreadr
 # rpy2

@@ -1,4 +1,17 @@
+# === Secrets
+secrets/
 
+# === Documents
+*.pdf
+
+# === Data
+*.csv
+*.txt
+*.parquet
+*.xlsx
+*.zip
+*.jpeg
+*.pyc
 # === Misc.
 # PyCharm
 .idea/
@@ -11,20 +24,8 @@
 # Mac
 .DS_Store
 
-# === Secrets
-secrets/
-
-# === Data
-*.csv
-*.txt
-*.parquet
-*.xlsx
-*.zip
-*.jpeg
-
-# === Documents
-*.pdf
-
 # === Include
 !requirements*.txt
 !data/manifest/**
+!table_1.csv
+!table_2.csv

@@ -1,0 +1,43 @@
+# Hi!
+# Below is a template on how to fill out this config file. 
+# When you want to include yours, comment out (add '#' to beginning of each 
+# line) or simply remove them -- you can remove all of these comments too. Add 
+# as many tables as you'd like, following the format below!
+# **Note**: Key column(s) must be unique to each row. If you suspect one was but
+# validation is giving you issues, remove it from the `key_columns` list and/or
+# add them to the the `other_columns` section.
+
+# This is an example of only 1 key column. E.g., `table_1` would be 1 row per 
+# patient where the name of the column is `col_1`. The `other_columns` that are
+# not required but will help validation. Here's what `table_1` would look like:
+#    | col_1 | col_2     | col_3  | col_4 |
+#    |-------|-----------|--------|-------|
+#    | a     | apple     | red    | sweet |
+#    | b     | banana    | yellow | sweet |
+#    | c     | calamansi | orange | sour  |
+
+# This is an example of only 2 key columns. E.g., `table_2` would have multiple
+# rows per patient. Here's what `table_2` could look like:
+#    | col_1 | col_5  | col_6 |
+#    |-------|--------|-------|
+#    | a     | big    | 9.2   |
+#    | a     | medium | 6.3   |
+#    | a     | small  | 2.7   |
+#    | b     | small  | 5.8   |
+#    | b     | medium | 8.6   |
+datapath: "data/hri_in_bpc"
+tables:
+  table_1:
+    key_columns:
+      - col_1
+    other_columns:
+      - col_2
+      - col_3
+      - col_4
+
+  table_2:
+    key_columns:
+      - col_1
+      - col_5
+    other_columns:
+      - col_6
