@@ -29,6 +29,7 @@ __pycache__/
 # Other files
 quickstart.py
 quickstart1.py
+test.R
 # === Include
 !requirements*.txt
 !data/manifest/**
