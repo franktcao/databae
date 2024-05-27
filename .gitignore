@@ -21,6 +21,9 @@ secrets/
 .venv/
 # Jupyter
 .ipynb_checkpoints/
+# === Cache
+__pycache__/
+.pytest_cache/
 # Mac
 .DS_Store
 
