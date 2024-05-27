@@ -12,6 +12,7 @@ secrets/
 *.zip
 *.jpeg
 *.pyc
+notebooks/
 # === Misc.
 # PyCharm
 .idea/
@@ -24,14 +25,16 @@ secrets/
 # === Cache
 __pycache__/
 .pytest_cache/
-# Mac
-.DS_Store
 # Other files
 quickstart.py
 quickstart1.py
 test.R
+pancreatitis_meddra_id.yaml
 # === Include
 !requirements*.txt
 !data/manifest/**
 !table_1.csv
 !table_2.csv
+# Mac
+.DS_Store
+data/manifest/.ipynb_checkpoints/*
