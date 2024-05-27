@@ -26,7 +26,9 @@ __pycache__/
 .pytest_cache/
 # Mac
 .DS_Store
-
+# Other files
+quickstart.py
+quickstart1.py
 # === Include
 !requirements*.txt
 !data/manifest/**
