@@ -1,23 +1,27 @@
-# Hi!
-# Below is a template on how to fill out this config file. 
-# When you want to include yours, comment out (add '#' to beginning of each 
-# line) or simply remove them -- you can remove all of these comments too. Add 
-# as many tables as you'd like, following the format below!
-# **Note**: Key column(s) must be unique to each row. If you suspect one was but
-# validation is giving you issues, remove it from the `key_columns` list and/or
-# add them to the the `other_columns` section.
-
-# This is an example of only 1 key column. E.g., `table_1` would be 1 row per 
-# patient where the name of the column is `col_1`. The `other_columns` that are
-# not required but will help validation. Here's what `table_1` would look like:
+# Hi! Below is a template on how to fill out this configuration file.
+# When you're ready to edit this file for your usecase, comment out (add '#' to 
+# beginning of each line) or simply remove the examples -- you can remove all of
+# these comments too. 
+# 
+# The current configuration (that's not commented out) is for the following 
+# example below with `table_1` having 1 row per unique value of `col_1`, i.e., 
+# `table_1` would be 1 row per patient column where the values of `col_1` would 
+# be unique identifier for each patient
+# 
+# table_1:
 #    | col_1 | col_2     | col_3  | col_4 |
 #    |-------|-----------|--------|-------|
 #    | a     | apple     | red    | sweet |
 #    | b     | banana    | yellow | sweet |
 #    | c     | calamansi | orange | sour  |
-
-# This is an example of only 2 key columns. E.g., `table_2` would have multiple
+# 
+# The next example, called a 'fact table', is where the key/unique identifier 
+# can be found on multiple rows. E.g., `table_2` could have `col_1` for the 
+# unique patient identifier like in `table_1` and `col_5` could be used for 
+# admission date, and finally, `col_6` could indicate their blood pressure.
 # rows per patient. Here's what `table_2` could look like:
+# 
+# table_2:
 #    | col_1 | col_5  | col_6 |
 #    |-------|--------|-------|
 #    | a     | big    | 9.2   |
@@ -25,19 +29,60 @@
 #    | a     | small  | 2.7   |
 #    | b     | small  | 5.8   |
 #    | b     | medium | 8.6   |
-datapath: "data/hri_in_bpc"
-tables:
-  table_1:
-    key_columns:
-      - col_1
-    other_columns:
-      - col_2
-      - col_3
-      - col_4
+# 
+# 
+# Add as many tables as needed, following the format below!
 
+
+# Data path relative to the project's root directory
+datapath: "data/hri_in_bpc"
+
+# Desired column name(s) to have one row per key combination in the ouput.
+# Note: All tables below will require this (these) column(s)!
+global_keys:
+  - col_1
+
+# Note: Tables not listed below will be ignored
+tables:
+  # This will be for tables with 1 row per global key combination
+  single_row_per_key:  
+    # This will know to look for `table_1.csv` in `datapath` above
+    - table_1  
+  # This will be for tables with multiple rows per global key combination
+  multiple_rows_per_key:  
+    - table_2
+# List tables that you want to filter out rows by particular column values
+# Note: Tables listed below *must* be included under `tables` above
+filter:
+  # In the example below, for `table_2`, keep rows where `col_5` is one of 
+  # ['small', 'big']
+  # OR `col_1` is 'b' (this effectively removes the 2nd row in `table_2` above).
   table_2:
-    key_columns:
-      - col_1
-      - col_5
-    other_columns:
-      - col_6
+    method: keep
+    combine: or
+    columns:
+      col_5:
+        - small
+        - big
+      col_1:
+        - b
+
+
+
+    # drop:
+      # key_column: col_1
+      # # Not required but include if you want to ensure columns are there
+      # other_columns:  
+      #   - col_2
+      #   - col_3
+      #   - col_4
+      # key_columns:
+      #   - col_1
+      #   - col_5
+      # : col_1
+      # columns_to_collect:
+      #   - col_6 The `other_columns` that are
+# not required but will help validation. Here's what `table_1` would look like:
+# **Note**: Key column(s) must be unique to each row. If you suspect one was but
+# validation is giving you issues, remove it from the `key_columns` list and/or
+# add them to the the `other_columns` section.
