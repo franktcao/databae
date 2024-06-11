@@ -1,6 +1,13 @@
 from functools import reduce
+from pathlib import Path
 
 import pandas as pd
+
+
+def get_project_root() -> Path:
+    result = Path(__file__).parent.parent
+
+    return result
 
 
 def flatten_table(
