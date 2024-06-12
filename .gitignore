@@ -37,3 +37,4 @@ pancreatitis_meddra_id.yaml
 # Mac
 .DS_Store
 data/manifest/.ipynb_checkpoints/*
+*.numbers
