@@ -1,0 +1,11 @@
+datapath: "data/hri_in_bpc"
+keep_eus_ref: 1
+tables:
+  main: "aaMaster_deidentified.csv"
+  procedures: "Procedures.csv"
+codes_of_interest:
+  - "43259"
+  - "43242"
+  - "43237"
+  - "43253"
+  - "43238"

@@ -7,15 +7,9 @@ import pandera as pa
 import yaml
 
 from dataclass import FilterConfig
+from eda_utils import get_config
 
 
-def get_config():
-    fname = "tables.yml"
-    fpath = Path(__file__).with_name(fname)
-    with open(fpath) as stream:
-        result = yaml.safe_load(stream)
-    
-    return result
 
 
 def get_manifest(tables_by_type: dict[str, list[str]]) -> pd.DataFrame:

@@ -2,11 +2,22 @@ from functools import reduce
 from pathlib import Path
 
 import pandas as pd
+import yaml
 
 
 def get_project_root() -> Path:
     result = Path(__file__).parent.parent
 
+    return result
+
+
+def get_config(fname: str = None):
+    if fname is None:
+        fname = "tables.yml"
+    fpath = Path(__file__).with_name(fname)
+    with open(fpath) as stream:
+        result = yaml.safe_load(stream)
+    
     return result
 
 
