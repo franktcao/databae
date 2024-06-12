@@ -80,15 +80,18 @@ if __name__ == "__main__":
 
     table_names = config["tables"]
 
-    encoding = "ISO-8859-1"
     encoding = "utf-8"
     
     fname_main = table_names["main"]
     fpath = data_path / fname_main
     main_table = pd.read_csv(fpath, encoding=encoding)
+    print(main_table)
     
+    encoding = "latin-1"
+    encoding = "ISO-8859-1"
     fname_proc = table_names["procedures"]
     fpath = data_path / fname_proc
     proc_table = pd.read_csv(fpath, encoding=encoding)
+    print(proc_table)
 
     main(main_table, proc_table, config)
