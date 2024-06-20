@@ -66,7 +66,7 @@ def main(
 
 
 if __name__ == "__main__":
-    config = get_config("one_hots.yml")
+    config = get_config("diagnoses.yml")
     
     data_path = Path(config["datapath"])
     table_names = config["tables"]
