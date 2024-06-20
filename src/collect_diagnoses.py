@@ -57,7 +57,7 @@ def main(
     data_path = Path(config["datapath"])
     fname_main = table_names["main"]
     fpath = data_path / fname_main
-    fpath = fpath.with_stem(f"{fpath.stem}_w_1hots")
+    fpath = fpath.with_stem(f"{fpath.stem}_w_diag")
     result.to_excel(fpath, index=False)
     
     print(f"Result preview:")
