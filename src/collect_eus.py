@@ -49,6 +49,7 @@ def process_procedures(
         processed 
         .drop(columns=["Code", "Date"])
         .rename(columns={"Patient Id": "Patient id"})
+        .filter(["Patient id", "EUS", "EUS dates"])
     )
 
     return processed 

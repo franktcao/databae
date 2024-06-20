@@ -9,13 +9,28 @@ def process_procedures(
 ) -> pd.DataFrame:
     keep_eus_ref = config["keep_ref"]
     codes = config["codes_of_interest"]
+    providers = config["providers_of_interest"]
+    providers_str = "|".join([x.upper() for x in providers])
+    
     processed = (
         proc_table
         .astype({"Date": "datetime64[s]",})
         .sort_values(["Patient Id", "Date"])
         .assign(Date=lambda x: x["Date"].dt.date)
         .astype({"Date": "str"})
+        .assign(
+            in_perf=lambda x: (
+                x["Performing Provider"]
+                .str.contains(providers_str, regex=True, case=False)
+            ),
+            in_bill=lambda x:( 
+                x["Billing Provider"]
+                .str.contains(providers_str, regex=True, case=False)
+            ),
+            seen_by_team=lambda x: x["in_perf"] | x["in_bill"]
+        )
         .pipe(lambda x: x[x["Code"].isin(codes)])
+        .pipe(lambda x: x[x["seen_by_team"]])
         .groupby("Patient Id", as_index=False)
         .agg(list)
         .assign(
@@ -27,9 +42,11 @@ def process_procedures(
                         .apply(lambda y: "; ".join(y))
                     )
                 ),
-                "Seen in clinic": 1,
+                "has_clinic_code": True,
             }
         )
+        .assign(seen_in_clinic=1)
+
     )
     if keep_eus_ref == 1:
         processed =(
@@ -49,6 +66,7 @@ def process_procedures(
         processed 
         .drop(columns=["Code", "Date"])
         .rename(columns={"Patient Id": "Patient id"})
+        .filter(["Patient id", "Clinic dates", "seen_in_clinic"])
     )
 
     return processed 
@@ -56,22 +74,9 @@ def process_procedures(
 def process_main_table(
     main_table: pd.DataFrame, config: dict
 ) -> pd.DataFrame:
-    providers = config["providers_of_interest"]
-    providers_str = "|".join([x.upper() for x in providers])
     processed = (
         main_table
-        .assign(
-            in_perf=lambda x: (
-                x["Performing Provider"]
-                .str.contains(providers_str, regex=True, case=False),
-            ),
-            in_bill=lambda x:( 
-                x["Billing Provider"]
-                .str.contains(providers_str, regex=True, case=False),
-            ),
-            keep=lambda x: (x["in_perf"] | x["in_bill"]).astype(int)
-        )
-        .rename(columns={"keep": "Seen in clinic"})
+        # .rename(columns={"keep": "Seen in clinic"})
     )
 
     return processed
@@ -85,9 +90,10 @@ def main(
     result = (
         processed_main
         .rename(columns={"ï»¿Patient id": "Patient id"})
-        .drop(columns=["Clinic dates"])
+        .drop(columns=["Clinic dates", "Seen in clinic"])
         .merge(processed_proc, on="Patient id", how="left")
-        # .fillna({"EUS": 0})
+        .fillna({"seen_in_clinic": 0})
+        .rename(columns={"seen_in_clinic": "Seen in clinic"})
         # .astype({"EUS": int})
     )
     

@@ -40,32 +40,33 @@ datapath: "data/hri_in_bpc"
 # Desired column name(s) to have one row per key combination in the ouput.
 # Note: All tables below will require this (these) column(s)!
 global_keys:
-  - col_1
+  - "Patient Id"
 
 # Note: Tables not listed below will be ignored
 tables:
   # This will be for tables with 1 row per global key combination
   single_row_per_key:  
     # This will know to look for `table_1.csv` in `datapath` above
-    - table_1  
+    - dummy
   # This will be for tables with multiple rows per global key combination
   multiple_rows_per_key:  
-    - table_2
+    - Procedures
 # List tables that you want to filter out rows by particular column values
 # Note: Tables listed below *must* be included under `tables` above
 filter:
   # In the example below, for `table_2`, keep rows where `col_5` is one of 
   # ['small', 'big']
   # OR `col_1` is 'b' (this effectively removes the 2nd row in `table_2` above).
-  table_2:
+  Procedures:
     method: keep
     combine: or
     columns:
-      col_5:
-        - small
-        - big
-      col_1:
-        - b
+      Code:
+        - 43259
+        - 43242
+        - 43237
+        - 43253
+        - 43238
 
 
 

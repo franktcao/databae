@@ -1,5 +1,5 @@
 datapath: "data/hri_in_bpc"
-keep_ref: 1
+keep_ref: 0
 tables:
   main: "aaMaster_w_eus.xlsx"
   procedures: "Procedures.csv"
