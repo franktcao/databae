@@ -64,7 +64,7 @@ def process_procedures(
 
     processed = (
         processed 
-        .drop(columns=["Code", "Date"])
+        # .drop(columns=["Code", "Date"])
         .rename(columns={"Patient Id": "Patient id"})
         .filter(["Patient id", "Clinic dates", "seen_in_clinic"])
     )
@@ -76,7 +76,8 @@ def process_main_table(
 ) -> pd.DataFrame:
     processed = (
         main_table
-        # .rename(columns={"keep": "Seen in clinic"})
+        .rename(columns={"ï»¿Patient id": "Patient id"})
+        .drop(columns=["Clinic dates", "Seen in clinic"])
     )
 
     return processed
@@ -89,12 +90,9 @@ def main(
     processed_main = process_main_table(main_table, config)
     result = (
         processed_main
-        .rename(columns={"ï»¿Patient id": "Patient id"})
-        .drop(columns=["Clinic dates", "Seen in clinic"])
         .merge(processed_proc, on="Patient id", how="left")
         .fillna({"seen_in_clinic": 0})
         .rename(columns={"seen_in_clinic": "Seen in clinic"})
-        # .astype({"EUS": int})
     )
     
     data_path = Path(config["datapath"])
