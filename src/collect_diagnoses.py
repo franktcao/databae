@@ -5,25 +5,29 @@ import pandas as pd
 from eda_utils import get_config, get_project_root
 
 def process_diagnosis(
-    diag_table: pd.DataFrame,  columns: dict[str, dict]
+    diag_table: pd.DataFrame, desc_col: str, columns: dict[str, dict]
 ) -> pd.DataFrame:
     processed = diag_table.copy()
-    for out_col, spec in columns.items():
-        col, contains = spec.items()
+    for out_col, contains in columns.items():
+        contains_str = "|".join(contains)
         processed = (
             processed
             .assign(
                 **{
                     out_col: lambda x: (
-                        x[col].str.contains(contains, case=False, regex=True)
+                        x[desc_col]
+                        .str.contains(contains_str, case=False, regex=True)
+                        .astype(int)
                     )
                 }
             )
         )
-
+    patient_col = "Patient Id"
     processed = (
-        processed 
-        .rename(columns={"Patient Id": "Patient id"})
+        processed
+        .groupby(patient_col, as_index=False)
+        .agg({col: "max" for col in columns})
+        .rename(columns={patient_col: "Patient id"})
         .filter(["Patient id", *(columns.keys())])
     )
 

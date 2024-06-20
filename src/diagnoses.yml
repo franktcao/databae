@@ -3,22 +3,24 @@ tables:
   main: "aaMaster.xlsx"
   procedures: "Procedures.csv"
   diagnosis: "Diagnosis.csv"
+diagnosis_columns:
+  "description": "Description"
 columns:
   "ATM":
-    "Description": "ATM gene"
+    - "ATM gene"
   "MLH1":
-    "Description": "MLH1"
+    - "MLH1"
   "MLH2":
-    "Description": "MLH2"
+    - "MLH2"
   "MLH6":
-    "Description": "MLH6"
+    - "MLH6"
   "PMS2":
-    "Description": "PMS2"
+    - "PMS2"
   "PALB2":
-    "Description": "PALB2"
+    - "PALB2"
   "PRSS1":
-    "Description": "PRSS1"
+    - "PRSS1"
   "STK11":
-    "Description": "Peutz-Jegher"
+    - "Peutz-Jegher"
   # "BRCA other": 
   #   "Description": "BRCA gene"
