@@ -62,10 +62,12 @@ def process_main_table(
         main_table
         .assign(
             in_perf=lambda x: (
-                x["Performing Provider"].str.contains(providers_str, regex=True, case=False),
+                x["Performing Provider"]
+                .str.contains(providers_str, regex=True, case=False),
             ),
             in_bill=lambda x:( 
-                x["Billing Provider"].str.contains(providers_str, regex=True, case=False),
+                x["Billing Provider"]
+                .str.contains(providers_str, regex=True, case=False),
             ),
             keep=lambda x: (x["in_perf"] | x["in_bill"]).astype(int)
         )
