@@ -13,11 +13,13 @@ pandas
 pandera
 # psycopg2
 # pyspark
+pydantic
 pytest
 pyyaml
 seaborn
 # streamlit
 sqlalchemy
 tqdm
+typing_extensions
 # pyreadr
 # rpy2

@@ -1,0 +1,18 @@
+datapath: "data/hri_in_bpc"
+keep_ref: 1
+tables:
+  main: "aaMaster_w_eus.xlsx"
+  procedures: "Procedures.csv"
+codes_of_interest:
+  - "99215"
+  - "99214"
+  - "99213"
+  - "99212"
+  - "99205"
+  - "99204"
+  - "99203"
+  - "99202"
+providers_of_interest:
+  - "Park, Walter"
+  - "Fushimi, Naoko"
+  - "Lee, Alice Ahyoung"
