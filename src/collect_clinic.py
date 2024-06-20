@@ -61,16 +61,15 @@ def process_main_table(
     processed = (
         main_table
         .assign(
-            in_perf=lambda x: x[
-                x["Performing Provider"].str.contains(providers_str, regex=True),
-            ],
-            in_bill=lambda x: x[
-                x["Billing Provider"].str.contains(providers_str, regex=True),
-            ],
+            in_perf=lambda x: (
+                x["Performing Provider"].str.contains(providers_str, regex=True, case=False),
+            ),
+            in_bill=lambda x:( 
+                x["Billing Provider"].str.contains(providers_str, regex=True, case=False),
+            ),
             keep=lambda x: (x["in_perf"] | x["in_bill"]).astype(int)
         )
         .rename(columns={"keep": "Seen in clinic"})
-        .drop(columns=["keeo"])
     )
 
     return processed
@@ -89,13 +88,13 @@ def main(
         # .fillna({"EUS": 0})
         # .astype({"EUS": int})
     )
-    # print(result)
+    
     data_path = Path(config["datapath"])
     fname_main = table_names["main"]
     fpath = data_path / fname_main
     fpath = fpath.with_stem(f"{fpath.stem}_w_clinic")
-    # print(fpath)
     result.to_excel(fpath, index=False)
+    
     print(f"Result preview:")
     print(result.head())
     print(f"Result saved to {fpath}")
