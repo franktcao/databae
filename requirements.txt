@@ -8,14 +8,15 @@
 # jupyterlab
 # jupyterlab-vim
 numpy
+openpyxl
 pandas
 pandera
 # psycopg2
-pyspark
+# pyspark
 pytest
 pyyaml
 seaborn
-streamlit
+# streamlit
 sqlalchemy
 tqdm
 # pyreadr

@@ -7,7 +7,7 @@ from eda_utils import get_project_root
 def main():
     # file_size_gb = 3e9
     # desired_size_gb = 0.5e9
-    rows_per_batch = 1e5
+    rows_per_batch = 1e6
     data_path_in = get_project_root() / "data" / "to_partition"
     data_path_out = get_project_root() / "data" / "partitioned"
     data_path_out.mkdir(exist_ok=True)

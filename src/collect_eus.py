@@ -11,7 +11,7 @@ def process_procedures(
     codes = config["codes_of_interest"]
     processed = (
         proc_table
-        .astype({"Date": "datetime64[D]",})
+        .astype({"Date": "datetime64[s]",})
         .sort_values(["Patient Id", "Date"])
         .assign(Date=lambda x: x["Date"].dt.date)
         .astype({"Date": "str"})
@@ -72,7 +72,7 @@ def main(
     fpath = data_path / fname_main
     fpath = fpath.with_stem(f"{fpath.stem}_w_eus")
     # print(fpath)
-    result.to_csv(fpath, index=False)
+    result.to_excel(fpath, index=False)
     print(f"Result preview:")
     print(result.head())
     print(f"Result saved to {fpath}")
@@ -85,12 +85,13 @@ if __name__ == "__main__":
     table_names = config["tables"]
 
     encoding = "utf-8"
-    encoding = "latin-1"
-    encoding = "ISO-8859-1"
+    # encoding = "latin-1"
+    # encoding = "ISO-8859-1"
     
     fname_main = table_names["main"]
     fpath = data_path / fname_main
-    main_table = pd.read_csv(fpath, encoding=encoding)
+    main_table = pd.read_excel(fpath)
+    # print(main_table.columns)
     
     fname_proc = table_names["procedures"]
     fpath = data_path / fname_proc
