@@ -22,5 +22,16 @@ columns:
     - "PRSS1"
   "STK11":
     - "Peutz-Jegher"
+  "CFTR":
+    - "CFTR gene"
+    - "Cystic fibrosis"
+  "TP53":
+    - "TP53"
+    - "Li-Fraumeni syndrome"
+  "Family history of pancreas cancer":
+    - "FH: pancreatic cancer"
+    - "FHx: pancreatic cancer"
+    - "Family history of pancreatic cancer"
+    - "Family history of malignant neoplasm of pancreas"
   # "BRCA other": 
   #   "Description": "BRCA gene"
