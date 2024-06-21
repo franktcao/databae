@@ -10,10 +10,10 @@ columns:
     - "ATM gene"
   "MLH1":
     - "MLH1"
-  "MLH2":
-    - "MLH2"
-  "MLH6":
-    - "MLH6"
+  "MSH2":
+    - "MSH2"
+  "MSH6":
+    - "MSH6"
   "PMS2":
     - "PMS2"
   "PALB2":

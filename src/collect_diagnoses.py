@@ -50,7 +50,7 @@ def main(
     main_table: pd.DataFrame, diag_table: pd.DataFrame, config: dict,
 ) -> None:
     columns = config["columns"]
-    processed_diag = process_diagnosis(diag_table, columns)
+    processed_diag = process_diagnosis(diag_table, "Description", columns)
     processed_main = process_main_table(main_table, columns)
     result = (
         processed_main
