@@ -12,7 +12,7 @@ def main(
         main_table[[mrn_col]]
         .merge(cgdb[[mrn_col]], on=mrn_col, how="left", indicator=True)
         .pipe(lambda x: x[x["_merge"] != "both"])
-        .filter(mrn_col)
+        .filter([mrn_col])
     )
     
     data_path = Path(config["datapath"])
