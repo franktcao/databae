@@ -1,6 +1,3 @@
-# main_mrn_column: "MRN"
-# cancer_gen_db_mrn_column: "MRN"
-
 datapath: "data/hri_in_bpc"
 mrn_col: "MRN"
 tables:
