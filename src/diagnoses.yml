@@ -2,7 +2,7 @@ datapath: "data/hri_in_bpc"
 tables:
   main: "aaMaster.xlsx"
   procedures: "Procedures.csv"
-  diagnosis: "Diagnosis.csv"
+  diagnosis: "Diagnoses.csv"
 diagnosis_columns:
   "description": "Description"
 columns:
