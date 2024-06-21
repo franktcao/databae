@@ -10,7 +10,12 @@ def main(
 ) -> None:
     result = (
         main_table[[mrn_col]]
-        .merge(cgdb[[mrn_col]], on=mrn_col, how="left", indicator=True)
+        .merge(
+            cgdb[[mrn_col]].dropna().drop_duplicates(), 
+            on=mrn_col, 
+            how="left", 
+            indicator=True
+        )
         .pipe(lambda x: x[x["_merge"] != "both"])
         .filter([mrn_col])
     )
