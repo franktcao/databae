@@ -2,4 +2,4 @@ datapath: "data/hri_in_bpc"
 mrn_col: "MRN"
 tables:
   main: "aaMaster.xlsx"
-  caner_gen_db: ""
+  caner_gen_db: "Cancer genetics database - PDAC only.xlsx"
