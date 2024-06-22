@@ -11,9 +11,7 @@ def get_project_root() -> Path:
     return result
 
 
-def get_config(fname: str = None):
-    if fname is None:
-        fname = "tables.yml"
+def get_config(fname: str = "tables.yml"):
     fpath = Path(__file__).with_name(fname)
     with open(fpath) as stream:
         result = yaml.safe_load(stream)

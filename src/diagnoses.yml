@@ -5,7 +5,7 @@ tables:
   diagnosis: "Diagnoses.csv"
 diagnosis_columns:
   "description": "Description"
-columns:
+1_columns:
   "ATM":
     - "ATM gene"
   "MLH1":
@@ -35,3 +35,14 @@ columns:
     - "Family history of malignant neoplasm of pancreas"
   # "BRCA other": 
   #   "Description": "BRCA gene"
+desc_columns:
+  "Lynch other":
+    -	"Lynch syndrome"
+    -	"Carrier of gene for Lynch syndrome"
+    -	"Hereditary nonpolyposis colorectal cancer (HNPCC) gene mutation positive"
+    -	"Hereditary nonpolyposis colorectal cancer syndrome"
+  # "BRCA1":
+  #   - "BRCA1 genetic carrier"
+  #   -	"BRCA1 gene mutation"
+  #   -	"BRCA1 positive"
+  #   -	"BRCA1" # - needs manual review if this is the only criteria it matched
