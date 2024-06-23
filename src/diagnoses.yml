@@ -41,3 +41,8 @@ desc_columns:
     - "Carrier of gene for Lynch syndrome"
     - "Hereditary nonpolyposis colorectal cancer (HNPCC) gene mutation positive"
     - "Hereditary nonpolyposis colorectal cancer syndrome"
+  "Hereditary pancreatitis other":
+    - "Hereditary pancreatitis"
+  "BRCA other":
+    - "BRCA gene"
+
