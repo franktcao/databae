@@ -49,7 +49,7 @@ def process_diagnosis(
                             x[desc_col],
                             ""
                         ),
-                        1
+                        ""
                     )
                 }
             )
