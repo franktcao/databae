@@ -84,7 +84,7 @@ def process_diagnosis(
             {f"{col} notes": lambda x: " || ".join(set(x)) for col in columns_recheck} 
         )
         .rename(columns={patient_col: "Patient id"})
-        .filter(["Patient id", *(columns_1.keys()), *(columns_desc.keys())])
+        .filter(["Patient id", *(columns_1.keys()), *(columns_desc.keys()), *(columns_desc.keys()), *[f"{col} notes" for col in columns_recheck.keys()]])
     )
 
     return processed 
