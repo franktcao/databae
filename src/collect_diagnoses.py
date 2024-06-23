@@ -107,7 +107,7 @@ def main(
     columns_1 = config["1_columns"]
     columns_desc = config["desc_columns"]
     columns_recheck = config["recheck_columns"]
-    columns = columns_1 | columns_desc
+    columns = columns_1 | columns_desc | columns_recheck
     processed_diag = process_diagnosis(
         diag_table, "Description", columns_1, columns_desc, columns_recheck
     )
