@@ -48,7 +48,8 @@ def process_diagnosis(
                             x[desc_col].str.contains(out_col, case=False),
                             x[desc_col],
                             None
-                        )
+                        ),
+                        1
                     )
                 }
             )
