@@ -39,6 +39,17 @@ diagnosis_columns:
     - "Melanoma-pancreatic cancer syndrome"
   # "BRCA other": 
   #   "Description": "BRCA gene"
+recheck_columns:
+  "BRCA1":
+    - "BRCA1 genetic carrier"
+    - "BRCA1 gene mutation"
+    - "BRCA1 positive"
+    # - "BRCA1"
+  "BRCA2":
+    - "BRCA2 genetic carrier"
+    - "BRCA2 gene mutation"
+    - "BRCA2 positive"
+    # - "BRCA2"
 desc_columns:
   "Lynch other":
     - "Lynch syndrome"

@@ -6,7 +6,11 @@ import pandas as pd
 from eda_utils import get_config, get_project_root
 
 def process_diagnosis(
-    diag_table: pd.DataFrame, desc_col: str, columns_1: dict[str, dict], columns_desc: dict[str, dict], 
+    diag_table: pd.DataFrame, 
+    desc_col: str, 
+    columns_1: dict[str, dict], 
+    columns_desc: dict[str, dict],
+    columns_recheck: dict[str, dict],
 ) -> pd.DataFrame:
     processed = diag_table.copy()
     for out_col, contains in columns_1.items():
@@ -23,6 +27,33 @@ def process_diagnosis(
                 }
             )
         )
+    for out_col, contains in columns_recheck.items():
+        contains_str = "|".join(contains)
+        processed = (
+            processed
+            .assign(
+                **{
+                    out_col: lambda x: (
+                        x[desc_col]
+                        .str.contains(contains_str, case=False, regex=True)
+                        .astype(int)
+                    )
+                }
+            )
+            .assign(
+                **{
+                    f"{out_col} notes": lambda x: np.where(
+                        x[out_col] == 0,
+                        np.where(
+                            x[desc_col].str.contains(out_col, case=False),
+                            x[desc_col],
+                            None
+                        )
+                    )
+                }
+            )
+        )
+
     for out_col, contains in columns_desc.items():
         contains_str = "|".join(contains)
         processed = (
@@ -35,7 +66,7 @@ def process_diagnosis(
                             .str.contains(contains_str, case=False, regex=True)
                         ), 
                         x[desc_col], 
-                        "",
+                        None,
                     )
                 }
             )
@@ -45,7 +76,12 @@ def process_diagnosis(
     processed = (
         processed
         .groupby(patient_col, as_index=False)
-        .agg({col: "max" for col in columns_1} | {col: lambda x: " || ".join(set(x)) for col in columns_desc})
+        .agg(
+            {col: "max" for col in columns_1} | 
+            {col: lambda x: " || ".join(set(x)) for col in columns_desc} |
+            {col: "max" for col in columns_recheck} | 
+            {f"{col} notes": lambda x: " || ".join(set(x)) for col in columns_recheck} 
+        )
         .rename(columns={patient_col: "Patient id"})
         .filter(["Patient id", *(columns_1.keys()), *(columns_desc.keys())])
     )
