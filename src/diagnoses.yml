@@ -33,6 +33,10 @@ diagnosis_columns:
     - "FHx: pancreatic cancer"
     - "Family history of pancreatic cancer"
     - "Family history of malignant neoplasm of pancreas"
+  "CDKN2A":
+    - "CDKN2A gene"
+    - "FAMMM"
+    - "Melanoma-pancreatic cancer syndrome"
   # "BRCA other": 
   #   "Description": "BRCA gene"
 desc_columns:
