@@ -47,7 +47,7 @@ def process_diagnosis(
                         np.where(
                             x[desc_col].str.contains(out_col, case=False),
                             x[desc_col],
-                            None
+                            ""
                         ),
                         1
                     )
@@ -67,7 +67,7 @@ def process_diagnosis(
                             .str.contains(contains_str, case=False, regex=True)
                         ), 
                         x[desc_col], 
-                        None,
+                        "",
                     )
                 }
             )
