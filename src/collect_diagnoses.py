@@ -99,8 +99,15 @@ def process_diagnosis(
                 **{
                     f"{out_col} dx date": lambda x: np.where(
                         x[out_col] == 1, 
-                        x["Date"].astype("datetime64[s]").dt.date, 
+                        x["Date"].astype("datetime64[s]"), 
                         pd.NaT
+                    )
+                }
+            )
+            .assign(
+                **{
+                    f"{out_col} dx date": (
+                        lambda x: x[f"{out_col} dx date"].dt.date
                     )
                 }
             )
