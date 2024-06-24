@@ -160,9 +160,15 @@ def main(
     columns_1 = config["1_columns"]
     columns_desc = config["desc_columns"]
     columns_recheck = config["recheck_columns"]
+    columns_1_desc_date = config["1_desc_date_columns"]
     columns = columns_1 | columns_desc | columns_recheck | {f"{col} notes": "" for col in columns_recheck}
     processed_diag = process_diagnosis(
-        diag_table, "Description", columns_1, columns_desc, columns_recheck
+        diag_table, 
+        "Description", 
+        columns_1, 
+        columns_desc, 
+        columns_recheck,
+        columns_1_desc_date
     )
     processed_main = process_main_table(main_table, columns)
     result = (
