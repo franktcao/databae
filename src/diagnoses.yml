@@ -60,4 +60,18 @@ desc_columns:
     - "Hereditary pancreatitis"
   "BRCA other":
     - "BRCA gene"
+1_desc_date_columns:
+  "PCN":
+    - "IPMN (intraductal papillary mucinous neoplasm)"
+    - "IPMT (intraductal papillary mucinous tumor)"
+    - "Cyst of pancreas"
+    - "Pancreatic cystadenoma"
+    - "Pancreatic cyst"
+    - "Cyst and pseudocyst of pancreas"
+    - "Benign neoplasm of pancreas"
+    - "Lesion of pancreas"
+    - "Mass of pancreas"
+    - "Pancreatic lesion"
+    - "Mucinous cystic neoplasm with low grade intraepithelial neoplasia of pancreas"
+    - "Serous cystadenoma"
 
