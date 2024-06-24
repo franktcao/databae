@@ -116,6 +116,7 @@ def process_diagnosis(
     patient_col = "Patient Id"
     processed = (
         processed
+        .sort_values("PCN dx date")
         .groupby(patient_col, as_index=False)
         .agg(
             {col: "max" for col in (columns_1 | columns_recheck)} | 
@@ -129,7 +130,7 @@ def process_diagnosis(
                 )
                 for col in (columns_recheck | columns_1_desc_date)
             } |
-            {f"{col} dx date": "min" for col in columns_1_desc_date} 
+            {f"{col} dx date": "first" for col in columns_1_desc_date} 
         )
         .rename(columns={patient_col: "Patient id"})
         .filter(
