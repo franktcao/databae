@@ -107,7 +107,7 @@ def process_diagnosis(
             .assign(
                 **{
                     f"{out_col} dx date": (
-                        lambda x: x[f"{out_col} dx date"].dt.date
+                        lambda x: pd.to_datetime(x[f"{out_col} dx date"].dt.date)
                     )
                 }
             )
@@ -119,7 +119,10 @@ def process_diagnosis(
         .sort_values("PCN dx date")
         .groupby(patient_col, as_index=False)
         .agg(
-            {col: "max" for col in (columns_1 | columns_recheck)} | 
+            {
+                col: "max" 
+                for col in (columns_1 | columns_recheck | columns_1_desc_date)
+            } | 
             {
                 col: (lambda x: " || ".join(set([e for e in x if e != ""])))
                 for col in columns_desc
@@ -130,7 +133,7 @@ def process_diagnosis(
                 )
                 for col in (columns_recheck | columns_1_desc_date)
             } |
-            {f"{col} dx date": "first" for col in columns_1_desc_date} 
+            {f"{col} dx date": "min" for col in columns_1_desc_date} 
         )
         .rename(columns={patient_col: "Patient id"})
         .filter(
