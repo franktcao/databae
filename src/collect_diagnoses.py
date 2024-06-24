@@ -116,7 +116,6 @@ def process_diagnosis(
     patient_col = "Patient Id"
     processed = (
         processed
-        .sort_values("PCN dx date")
         .groupby(patient_col, as_index=False)
         .agg(
             {
@@ -135,6 +134,7 @@ def process_diagnosis(
             } |
             {f"{col} dx date": "min" for col in columns_1_desc_date} 
         )
+        .pipe(lambda x: x["PCN dx date"].dt.date)
         .rename(columns={patient_col: "Patient id"})
         .filter(
             [
