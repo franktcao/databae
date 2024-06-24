@@ -118,16 +118,16 @@ def process_diagnosis(
         processed
         .groupby(patient_col, as_index=False)
         .agg(
-            {col: "max" for col in columns_1 | columns_recheck} | 
+            {col: "max" for col in (columns_1 | columns_recheck)} | 
             {
-                col: lambda x: " || ".join(set([e for e in x if e != ""])) 
+                col: (lambda x: " || ".join(set([e for e in x if e != ""])))
                 for col in columns_desc
             } |
             {
                 f"{col} notes": lambda x: (
                     " || ".join(set([e for e in x if e != ""])) 
                 )
-                for col in columns_recheck | columns_1_desc_date
+                for col in (columns_recheck | columns_1_desc_date)
             } |
             {f"{col} dx date": "min" for col in columns_1_desc_date} 
         )
