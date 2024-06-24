@@ -83,7 +83,7 @@ def process_diagnosis(
                 **{
                     out_col: lambda x: (
                         x[desc_col]
-                        .str.contains(contains_str, case=False, regex=True)
+                        .str.contains(contains_str, regex=True)
                         .astype(int)
                     )
                 }
@@ -99,7 +99,7 @@ def process_diagnosis(
                 **{
                     f"{out_col} dx date": lambda x: np.where(
                         x[out_col] == 1, 
-                        x["Date"].astype("datetime64[s]"), 
+                        x["Date"].astype("datetime64[s]").dt.date, 
                         pd.NaT
                     )
                 }
@@ -161,7 +161,14 @@ def main(
     columns_desc = config["desc_columns"]
     columns_recheck = config["recheck_columns"]
     columns_1_desc_date = config["1_desc_date_columns"]
-    columns = columns_1 | columns_desc | columns_recheck | {f"{col} notes": "" for col in columns_recheck}
+    columns = (
+        columns_1 | 
+        columns_desc | 
+        columns_recheck | 
+        columns_1_desc_date | 
+        {f"{col} notes": "" for col in columns_recheck | columns_1_desc_date} | 
+        {f"{col} dx date": "" for col in columns_1_desc_date} 
+    )
     processed_diag = process_diagnosis(
         diag_table, 
         "Description", 
