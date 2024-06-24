@@ -128,13 +128,13 @@ def process_diagnosis(
         .filter(
             [
                 "Patient id", 
-                *(columns_1.keys()), 
+                *(columns_1.keys()),
                 *(columns_desc.keys()), 
                 *(columns_recheck.keys()), 
-                *[f"{col} notes" for col in columns_recheck.keys()]
+                *[f"{col} notes" for col in columns_recheck.keys()],
                 *(columns_1_desc_date.keys()), 
-                *[f"{col} notes" for col in columns_1_desc_date.keys()]
-                *[f"{col} dx date" for col in columns_1_desc_date.keys()]
+                *[f"{col} notes" for col in columns_1_desc_date.keys()],
+                *[f"{col} dx date" for col in columns_1_desc_date.keys()],
             ]
         )
     )
