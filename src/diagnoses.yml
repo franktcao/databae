@@ -5,6 +5,9 @@ tables:
   diagnosis: "Diagnoses.csv"
 diagnosis_columns:
   "description": "Description"
+  "icd9": "ICD9 Code"
+  "icd10": "ICD10 Code"
+
 1_columns:
   "ATM ":
     - "ATM gene"
@@ -74,4 +77,52 @@ desc_columns:
     - "Pancreatic lesion"
     - "Mucinous cystic neoplasm with low grade intraepithelial neoplasia of pancreas"
     - "Serous cystadenoma"
-
+panc_cancer_columns:
+  "Pancreas cancer":
+    "exact":
+      "ICD9 Code":
+        - "157.9"  # - Malignant neoplasm of pancreas, unspecified location of malignancy; Pancreatic adenocarcinoma; Malignant neoplasm of pancreas, part unspecified; Acinar cell carcinoma of pancreas; Pancreas cancer
+        -	"157.1"  # - Malignant neoplasm of body of pancreas 
+        -	"157"  # - Malignant neoplasm of head of pancreas
+        -	"157.2"  # - Malignant neoplasm of tail of pancreas
+        -	"157.8"  # - Overlapping malignant neoplasm of pancreas; Malignant neoplasm of other parts of pancreas
+        # Review!
+        -	"V10.09"  # - Personal history of malignant neoplasm of pancreas; History of pancreatic cancer; H/O pancreatic cancer - needs manual review
+        # Review!
+        -	"239"  # – Pancreatic tumor – needs manual review
+      "ICD10 Code":
+        -	"C25.9"  # - Malignant neoplasm of pancreas, unspecified; Pancreatic adenocarcinoma; Malignant neoplasm of pancreas, unspecified location of malignancy; Pancreas cancer
+        -	"C25.1"  # - Malignant neoplasm of body of pancreas
+        -	"C25.0"  # - Malignant neoplasm of head of pancreas
+        -	"C25.2"  # - Malignant neoplasm of tail of pancreas
+        -	"Z85.07"  # - Personal history of malignant neoplasm of pancreas; History of pancreatic cancer; H/O pancreatic cancer
+        -	"C25.8"  # - Malignant neoplasm of overlapping sites of pancreas; Overlapping malignant neoplasm of pancreas
+        # Review!
+        -	"D49.0"  # – Pancreatic tumor – needs manual review
+    "includes":
+      "Description":  
+        - "Malignant neoplasm of pancreas, unspecified location of malignancy" # - 157.9, C25.9
+        - "Malignant neoplasm of pancreas, unspecified"  # – C25.9
+        - "Malignant neoplasm of body of pancreas"  # – 157.1, C25.1
+        - "Malignant neoplasm of head of pancreas"  # – 157, C25.1
+        - "Malignant neoplasm of other parts of pancreas"  # – 157.8 
+        - "Pancreatic adenocarcinoma"  # - 157.9, C25.9
+        - "Personal history of malignant neoplasm of pancreas"  # – V10.09, Z85.07
+        - "Malignant neoplasm of pancreas, part unspecified"  # – 157.9
+        - "Pancreas cancer"  # – 157.9, C25.9
+        - "Malignant neoplasm of tail of pancreas"  # – 157.2, C25.2
+        - "H/O pancreatic cancer"  # – V10.09, Z85.07
+        - "Malignant neoplasm of overlapping sites of pancreas"  # – C25.8
+        # - "Acinar cell carcinoma of pancreas"  # – 157.9 – keep in database but not in analysis
+        - "Overlapping malignant neoplasm of pancreas"  # – 157.8, C25.8
+        - "History of pancreatic cancer"  # – V10.09, Z85.07
+        # Review!
+        - "Pancreatic tumor"  # – 239, D49.0 - needs manual review
+    "review":
+      "ICD9 Code":
+        -	"V10.09"  # - Personal history of malignant neoplasm of pancreas; History of pancreatic cancer; H/O pancreatic cancer - needs manual review
+        -	"239"  # – Pancreatic tumor – needs manual review
+      "ICD10 Code":
+        -	"D49.0"  # – Pancreatic tumor – needs manual review
+      "Description":  
+        - "Pancreatic tumor"  # – 239, D49.0 - needs manual review

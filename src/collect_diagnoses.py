@@ -5,6 +5,52 @@ import pandas as pd
 
 from eda_utils import get_config, get_project_root
 
+
+def get_entries_contain(
+    sr: pd.Series, contains: list[str], **kwargs
+) -> pd.Series:
+    contains_str = "|".join(contains)
+
+    result = sr.str.contains(contains_str, case=False, regex=True, **kwargs)
+
+    return result
+
+
+def get_panc_cancer_rows(
+    df: pd.DataFrame,
+    desc_col: str,
+    exact_cols: dict[str, list[str]], 
+    includes_cols: dict[str, list[str]], 
+    review_cols: list[str],
+    out_col: str = "Pancreas cancer",
+    date_col: str = "Date",
+) -> pd.DataFrame:
+    match_condition = pd.Series(0, index=df.index)
+    for col, entries in (exact_cols | includes_cols).items():
+        match_condition |= get_entries_contain(df[col], entries)
+
+    review_condition = pd.Series(0, index=df.index)
+    for col, entries in review_cols.item():
+        review_condition |= get_entries_contain(df[col], entries)
+
+    result = (
+        df
+        .assign(
+            **{
+                out_col: lambda x: match_condition.astype(int),
+                f"{out_col} dx date": lambda x: np.where(
+                    match_condition, x[date_col].astype("datetime64[s]"), pd.NaT
+                ),
+                f"{out_col} notes": lambda x: np.where(
+                    review_condition, x[desc_col], ""
+                ),
+            }
+        )
+    )
+
+    return result
+
+
 def process_diagnosis(
     diag_table: pd.DataFrame, 
     desc_col: str, 
@@ -112,6 +158,20 @@ def process_diagnosis(
                 }
             )
         )
+    
+    exact_cols: dict[str, list[str]] = (
+        config["panc_cancer_columns"]["Pancreas cancer"]["exact"]
+    )
+    includes_cols: dict[str, list[str]] = (
+        config["panc_cancer_columns"]["Pancreas cancer"]["includes"]
+    )
+    review_cols: dict[str, list[str]] = (
+        config["panc_cancer_columns"]["Pancreas cancer"]["review"]
+    )
+
+    processed = get_panc_cancer_rows(
+        processed, desc_col, exact_cols, includes_cols, review_cols,
+    )
 
     patient_col = "Patient Id"
     processed = (
@@ -120,32 +180,58 @@ def process_diagnosis(
         .agg(
             {
                 col: "max" 
-                for col in (columns_1 | columns_recheck | columns_1_desc_date)
+                for col in (
+                    *columns_1,
+                    *columns_recheck,
+                    *columns_1_desc_date,
+                    "Pancreas cancer"
+                )
             } | 
             {
-                col: (lambda x: " || ".join(set([e for e in x if e != ""])))
-                for col in columns_desc
+                col: lambda x: " || ".join(set([e for e in x if e != ""]))
+                for col in columns_desc 
             } |
             {
                 f"{col} notes": lambda x: (
                     " || ".join(set([e for e in x if e != ""])) 
                 )
-                for col in (columns_recheck | columns_1_desc_date)
+                for col in (
+                    *columns_recheck, *columns_1_desc_date, "Pancreas cancer",
+                )
             } |
-            {f"{col} dx date": "min" for col in columns_1_desc_date} 
+            {
+                f"{col} dx date": "min" for col in (
+                    *columns_1_desc_date, "Pancreas cancer"
+                )
+            } 
         )
-        .assign(**{"PCN dx date": lambda x: x["PCN dx date"].dt.date})
+        .assign(
+            **{
+                f"{col} dx date": lambda x: x[f"{col} dx date"].dt.date
+                for col in ("PCN", "Pancreas cancer")
+            }
+        )
         .rename(columns={patient_col: "Patient id"})
         .filter(
             [
                 "Patient id", 
-                *(columns_1.keys()),
-                *(columns_desc.keys()), 
-                *(columns_recheck.keys()), 
-                *[f"{col} notes" for col in columns_recheck.keys()],
-                *(columns_1_desc_date.keys()), 
-                *[f"{col} notes" for col in columns_1_desc_date.keys()],
-                *[f"{col} dx date" for col in columns_1_desc_date.keys()],
+                *columns_1,
+                *columns_desc,
+                *columns_recheck,
+                *columns_1_desc_date,
+                "Pancreas cancer",
+                *[
+                    f"{col} notes" 
+                    for col in [
+                        *columns_1_desc_date,
+                        *columns_recheck,
+                        "Pancreas cancer"
+                    ]
+                ],
+                *[
+                    f"{col} dx date" 
+                    for col in [*columns_1_desc_date, "Pancreas cancer"]
+                ],
             ]
         )
     )
@@ -172,14 +258,7 @@ def main(
     columns_desc = config["desc_columns"]
     columns_recheck = config["recheck_columns"]
     columns_1_desc_date = config["1_desc_date_columns"]
-    columns = (
-        columns_1 | 
-        columns_desc | 
-        columns_recheck | 
-        columns_1_desc_date | 
-        {f"{col} notes": "" for col in columns_recheck | columns_1_desc_date} | 
-        {f"{col} dx date": "" for col in columns_1_desc_date} 
-    )
+
     processed_diag = process_diagnosis(
         diag_table, 
         "Description", 
@@ -188,11 +267,31 @@ def main(
         columns_recheck,
         columns_1_desc_date
     )
+
+    # Drop all columns from main table that we will be filling 
+    columns = (
+        *columns_1, 
+        *columns_desc,
+        *columns_recheck,
+        *columns_1_desc_date,
+        "Pancreas cancer",
+        *[
+            f"{col} notes"
+            for col in (
+                *columns_recheck, *columns_1_desc_date, "Pancreas cancer"
+            )
+        ], 
+        *[
+            f"{col} dx date"
+            for col in (*columns_1_desc_date, "Pancreas cancer")
+        ]
+    )
     processed_main = process_main_table(main_table, columns)
+
     result = (
         processed_main
         .merge(processed_diag, on="Patient id", how="left")
-        .fillna({col: 0 for col in columns_1})
+        .fillna({col: 0 for col in [*columns_1, "Pancreas cancer"]})
     )
     
     data_path = Path(config["datapath"])
